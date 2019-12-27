@@ -6,11 +6,11 @@ export class LogIn extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar style={styles.statusbar}></StatusBar>
-                <Image source={require('../images/logo.png')} style={styles.logo} ></Image>
-                <TextInput placeholder="User Name" style={styles.inputtxt}></TextInput>
-                <TextInput placeholder="Password" secureTextEntry={true} style={styles.inputtxt}></TextInput>
-                <Button title="LogIn" style={styles.loginbtn}></Button>
+            <StatusBar style={styles.statusbar}></StatusBar>
+            <Image source={require('../images/logo.png')} style={styles.logo} ></Image>
+            <TextInput placeholder="User Name" style={styles.inputtxt}></TextInput>
+            <TextInput placeholder="Password" secureTextEntry={true} style={styles.inputtxt}></TextInput>
+            <Button title="LogIn" color={"#7029e9"} onPress={this.props.onPress} style={styles.loginbtn}></Button>
             </View>
         );
     }
@@ -24,22 +24,21 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: '#7D75A6'
+        backgroundColor: '#ffffff'
     },
     inputtxt: {
         marginVertical: 10,
-        borderColor: 'blueviolet',
+        borderColor: "#7029e9",
         borderWidth: 1,
         fontSize: 16,
         textAlign: "center",
         borderRadius: 5,
-        width: 200,
+        width: "70%",
         color: '#000000'
     },
     loginbtn: {
         fontSize: 16,
-        borderRadius: 50,
-        color: '#FFFFFF'
+        width: "90%",
     },
     logintxt: {
         fontSize: 18,
@@ -51,5 +50,10 @@ const styles = StyleSheet.create({
     logo: {
         width: 80,
         height: 80
-    }
+    },
+      loginbtn: {
+        fontSize: 16,
+        borderRadius: 50,
+        color: '#FFFFFF'
+      },
 });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView, Text, Alert } from 'react-native';
-import VideoPlayer from 'react-native-video-controls';
+import { HubVideoList} from '../data/videogallery';
 
 var videoList = [
     {
@@ -121,10 +121,10 @@ export class Home extends Component {
 
     render() {
         var videoGallery = [];
-        for (let video of videoList) {
+        for (let video of HubVideoList) {
             videoGallery.push(
-                <View style={styles.videoGrid}  onTouchEnd={this.props.playVideo.bind(this, {url: video.url, name: video.name})}>
-                    <Text style={styles.labels} >{video.name}</Text>
+                <View style={styles.videoGrid}  onTouchEnd={this.props.showHubList.bind(this, {category: video.category, subCategory: video.subCategory })}>
+                    <Text style={styles.labels} >{video.category}</Text>
                 </View>
             )
         }
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     scrollview: {
         flex: 1,
         width: '100%',
-        backgroundColor: '#7D75A6'
+        backgroundColor: '#FFF'
     },
     labels: {
         fontSize: 18,

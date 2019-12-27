@@ -2,33 +2,26 @@ import React from 'react';
 import {
   ActivityIndicator,
   AsyncStorage,
-  Button,
   StatusBar,
   StyleSheet,
   View,
-  Image,
-  TextInput,
-  Alert
+  Text
 } from 'react-native';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { HubPlayer } from './src/components/HubPlayer';
 import { Home } from './src/components/Home';
-
+import { LogIn } from './src/pages/LogIn';
+import { HubList } from './src/components/HubList';
+var logout = "<--"
 class SignInScreen extends React.Component {
   static navigationOptions = {
-    title: 'SyncfusionHub LogIn',
+    title: 'SyncfusionHub LogIn'
   };
 
   render() {
     return (
-      <View style={styles.container}>
-      <StatusBar style={styles.statusbar}></StatusBar>
-      <Image source={require('./src/images/logo.png')} style={styles.logo} ></Image>
-      <TextInput placeholder="User Name" style={styles.inputtxt}></TextInput>
-      <TextInput placeholder="Password" secureTextEntry={true} style={styles.inputtxt}></TextInput>
-      <Button title="LogIn" color={"#7029e9"} onPress={this._signInAsync} style={styles.loginbtn}></Button>
-      </View>
+      <LogIn onPress={this._signInAsync}></LogIn>
     );
   }
 
@@ -44,20 +37,24 @@ class SignInScreen extends React.Component {
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome to the SyncfusionHub!',
+    headerRight: () => (
+      <View style={styles.signout} onTouchEnd={this._signOutAsync}>
+        <Text>LogOut</Text>
+      </View>
+    )
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <Home playVideo={this._showMoreApp}/>
+        <Home showHubList={this._showMoreList}/>
       </View>
     );
   }
 
-  _showMoreApp = (e) => {
-    //Alert.alert(e.url);
-    PlayerScreen.navigationOptions.title = e.name;
-    this.props.navigation.navigate('Player', {url: e.url, name: e.name});
+  _showMoreList = (e) => {
+    HubListScreen.navigationOptions.title = e.category;
+    this.props.navigation.navigate('HubList', {category: e.category, subCategory: e.subCategory});
   };
 
   _signOutAsync = async () => {
@@ -66,12 +63,44 @@ class HomeScreen extends React.Component {
   };
 }
 
+class HubListScreen extends React.Component {
+  static navigationOptions = {
+    //title: '',
+    headerRight: () => (
+      <View style={styles.signout} onTouchEnd={this._signOutAsync}>
+        <Text>LogOut</Text>
+      </View>
+    )
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <HubList playVideo={this._showhubList} subCategory={this.props.navigation.state.params.subCategory}/>
+      </View>
+    );
+  }
+
+  _showhubList = (e) => {
+    PlayerScreen.navigationOptions.title = e.videoTitle;
+    this.props.navigation.navigate('Player', {url: e.url, name: e.videoTitle});
+  };
+
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  };
+}
 class PlayerScreen extends React.Component {
   static navigationOptions = {
     //title: 'Video Player',
+    headerRight: () => (
+      <View style={styles.signout} onTouchEnd={this._signOutAsync}>
+        <Text>LogOut</Text>
+      </View>
+    )
   };
   render() {
-    const { url } = this.props.navigation.state.params.url;
     return (
       <HubPlayer uri={this.props.navigation.state.params.url}>
       </HubPlayer>
@@ -120,39 +149,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: '#ffff'
 },
-inputtxt: {
-    marginVertical: 10,
-    borderColor: "#7029e9",
-    borderWidth: 1,
-    fontSize: 16,
-    textAlign: "center",
-    borderRadius: 5,
-    width: "70%",
-    color: '#000000'
-},
-loginbtn: {
-    fontSize: 16,
-    width: "90%",
-},
-logintxt: {
-    fontSize: 18,
-    color: '#FFFFFF'
-},
-statusbar: {
-    backgroundColor: '#B894F6'
-}, 
-logo: {
-    width: 80,
-    height: 80
-},
-  loginbtn: {
-    fontSize: 16,
-    borderRadius: 50,
-    color: '#FFFFFF'
-  },
+signout: {
+  height: 50,
+  width:  50,
+  borderRadius: 30,
+  backgroundColor: '#5710c2',
+  opacity: 0.7
+}
 });
 
-const AppStack = createStackNavigator({ Home: HomeScreen, Player: PlayerScreen });
+const AppStack = createStackNavigator({ Home: HomeScreen, Player: PlayerScreen, HubList: HubListScreen });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 
 export default createAppContainer(createSwitchNavigator(
