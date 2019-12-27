@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
         color: '#000000'
     },
     buttongruop: {
+        top: '21%',
         flexDirection: 'row',
+        height: "20%",
         justifyContent: 'flex-start'
     },
     btns: {
@@ -40,33 +42,77 @@ const styles = StyleSheet.create({
     reaction: {
         fontSize: 20,
         color: '#fff'
+    },
+
+    videoRow: {
+        flexDirection: 'row'
+    },
+    labels: {
+        fontSize: 18,
+        color: '#ffffff',
+        fontWeight: "600",
+        overflow: 'hidden'
+    },
+    videoGrid: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '90%',
+        height: 50,
+        borderRadius: 5
+    },
+    notesGrid: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '90%',
+        height: 50,
+        marginTop: 5,
+        borderRadius: 5,
+        opacity: 0.8,     
+        backgroundColor: "#7029e9",
     }
 });
 
 export class HubPlayer extends Component {
-    textChange = (e) => {
-        Alert.alert(e);
+    availableNotes;
+    constructor() {
+        super();
+        this.availableNotes = [];
+        this.state = {
+            notes: []
+        }
+    }
+    renderNotes = () => {
+        var notes = [];
+        this.availableNotes = ["Oops conepts"];;
+        for (let note of this.availableNotes) {
+            notes.push(
+                <View style={styles.notesGrid}>
+                    <View style={styles.videoRow}>
+                        <Text style={styles.labels}>{note}</Text>
+                    </View>
+                </View>
+            )
+        }
+        return (notes);
     }
     render() {
-        var notes = [];
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <VideoPlayer style={styles.backgroundVideo} resizeMode={"contain"} hideShutterView={false}
-                source={{ uri: this.props.uri}}/>
-            <View style={styles.buttongruop}>
-                <View style={styles.btns} >
-                    <Text style={styles.reaction}>Like</Text>
+                <VideoPlayer style={styles.backgroundVideo} resizeMode={"contain"} hideShutterView={false}
+                    source={{ uri: this.props.uri }} />
+                <View style={styles.buttongruop}>
+                    <View style={styles.btns} >
+                        <Text style={styles.reaction}>Like</Text>
+                    </View>
+                    <View style={styles.btns} color="#7029e9">
+                        <Text style={styles.reaction}>MyList</Text>
+                    </View>
                 </View>
-                <View style={styles.btns} color="#7029e9">
-                    <Text style={styles.reaction}>MyList</Text>
-                </View>
+                <TextInput placeholder="+ Take Notes" style={styles.inputtxt}></TextInput>
+                {this.renderNotes()}
             </View>
-            <TextInput placeholder="+ Take Notes" style={styles.inputtxt} onKeyPress={this.textChange}></TextInput>
-            
-        </View>
         );
     }
 }
 
 
-            

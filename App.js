@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   Text,
-  Alert
+  Alert,
+  Button
 } from 'react-native';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -59,7 +60,6 @@ class HomeScreen extends React.Component {
   };
 
   _signOutAsync = async () => {
-    Alert.alert("logout");
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
@@ -162,6 +162,10 @@ signout: {
 logoutlabel: {
   fontSize: 24,
   color: '#ffffff'
+},
+logbtn: {
+  position: 'absolute',
+  top: 0
 }
 });
 
