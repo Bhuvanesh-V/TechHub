@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, Text, TextInput, Button, StatusBar } from 'react-native';
 
-export default class LogIn extends Component {
+export class LogIn extends Component {
 
     render() {
         return (
@@ -9,7 +9,7 @@ export default class LogIn extends Component {
                 <StatusBar style={styles.statusbar}></StatusBar>
                 <Image source={require('../images/logo.png')} style={styles.logo} ></Image>
                 <TextInput placeholder="User Name" style={styles.inputtxt}></TextInput>
-                <TextInput placeholder="Password" style={styles.inputtxt}></TextInput>
+                <TextInput placeholder="Password" secureTextEntry={true} style={styles.inputtxt}></TextInput>
                 <Button title="LogIn" style={styles.loginbtn}></Button>
             </View>
         );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
-import { ScrollView, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView, Text, Alert } from 'react-native';
+import VideoPlayer from 'react-native-video-controls';
 
 var videoList = [
     {
@@ -11,7 +12,7 @@ var videoList = [
     {
         name: 'VB',
         category: '.Net',
-        url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        url: 'https://firebasestorage.googleapis.com/v0/b/techhub-bhuvan.appspot.com/o/CSharpFundamentals.mp4?alt=media&token=c6b4e666-558a-46b7-bf05-bcf204796ca8'
     },
     {
         name: 'JS',
@@ -54,65 +55,76 @@ var videoList = [
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1C#',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1VB',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1JS',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1React',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1Angular',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1Vue',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1Blazor',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1Ionic',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1Flutter',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
     {
-        name: '1Xamarin',
+        name: '+',
         category: '.Net',
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
-]
+    {
+        name: '+',
+        category: '.Net',
+        url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+    },
 
-export default class Home extends Component {
+]
+export class Home extends Component {
+    constructor() {
+        super()
+        this.state = {
+            videoUrl: ''
+        }
+    }
 
     render() {
         var videoGallery = [];
         for (let video of videoList) {
             videoGallery.push(
-                <View style={styles.videoGrid}>
-                    <Text style={styles.labels}>{video.name}</Text>
+                <View style={styles.videoGrid}  onTouchEnd={this.props.playVideo.bind(this, {url: video.url, name: video.name})}>
+                    <Text style={styles.labels} >{video.name}</Text>
                 </View>
             )
         }
@@ -132,7 +144,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignContent: 'space-around',
         justifyContent: 'space-around',
-        backgroundColor: '#7D75A6'
+        backgroundColor: '#FFF'
     },
     scrollview: {
         flex: 1,
@@ -141,7 +153,8 @@ const styles = StyleSheet.create({
     },
     labels: {
         fontSize: 18,
-        color: '#fff'
+        color: '#ffffff',
+        fontWeight: "600",
     },
     videoGrid: {
         margin: 10,
@@ -149,7 +162,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 100,
         height: 100,
-        borderRadius: 10,
-        backgroundColor: '#D93240'
-    }
+        borderRadius: 5,
+        backgroundColor: '#6103EE'
+    },
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 10,
+        right: 10,
+        height: '40%',
+        width: '100%',
+        borderColor: 'silver',
+        borderWidth: 0.1
+    },
 })
