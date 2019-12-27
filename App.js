@@ -5,7 +5,8 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  Text
+  Text,
+  Alert
 } from 'react-native';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -38,8 +39,8 @@ class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome to the SyncfusionHub!',
     headerRight: () => (
-      <View style={styles.signout} onTouchEnd={this._signOutAsync}>
-        <Text>LogOut</Text>
+      <View style={styles.signout}  onTouchEnd={this._signOutAsync}>
+        <Text style={styles.logoutlabel}>X</Text>
       </View>
     )
   };
@@ -58,6 +59,7 @@ class HomeScreen extends React.Component {
   };
 
   _signOutAsync = async () => {
+    Alert.alert("logout");
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
@@ -68,7 +70,7 @@ class HubListScreen extends React.Component {
     //title: '',
     headerRight: () => (
       <View style={styles.signout} onTouchEnd={this._signOutAsync}>
-        <Text>LogOut</Text>
+        <Text style={styles.logoutlabel}>X</Text>
       </View>
     )
   };
@@ -96,7 +98,7 @@ class PlayerScreen extends React.Component {
     //title: 'Video Player',
     headerRight: () => (
       <View style={styles.signout} onTouchEnd={this._signOutAsync}>
-        <Text>LogOut</Text>
+        <Text style={styles.logoutlabel}>X</Text>
       </View>
     )
   };
@@ -150,11 +152,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffff'
 },
 signout: {
+  alignItems: 'center',
+  justifyContent: 'center',
   height: 50,
   width:  50,
   borderRadius: 30,
-  backgroundColor: '#5710c2',
-  opacity: 0.7
+  backgroundColor: '#7029e9'
+},
+logoutlabel: {
+  fontSize: 24,
+  color: '#ffffff'
 }
 });
 

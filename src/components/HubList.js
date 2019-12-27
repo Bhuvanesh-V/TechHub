@@ -10,7 +10,6 @@ export class HubList extends Component {
             videoGallery.push(
                 <View style={styles.videoGrid}  onTouchEnd={this.props.playVideo.bind(this, {subTitle: video.subTitle, videoTitle: video.videoTitle, url: video.url })}>
                     <View style={styles.videoRow}>
-                        <Image source={require('../images/logo.png')} style={styles.imggrid} ></Image>
                         <Text style={styles.labels} >{video.videoTitle}</Text>
                     </View>
                 </View>
@@ -42,17 +41,14 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#FFF'
     },
-    imggrid: {
-        alignItems: 'flex-start',
-        alignContent: 'flex-start'
-    },
     labels: {
         fontSize: 18,
         color: '#ffffff',
         fontWeight: "600",
+        overflow: 'hidden'
     },
     logo: {
-        width: '30%',
+        width: '10%',
         height: '100%'
     },
     videoGrid: {
@@ -62,7 +58,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 100,
         borderRadius: 5,
-        backgroundColor: 'silver'
+        backgroundColor: '#7029e9'
     },
     backgroundVideo: {
         position: 'absolute',
